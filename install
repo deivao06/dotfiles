@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+DOTFILES=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
+
+#KITTY CONFIGURATION
+rm -rf $HOME/.config/kitty
+ln -s $DOTFILES/kitty $HOME/.config/kitty
+
+#TMUX CONFIGURATION
+rm -rf $HOME/.tmux.conf
+ln -s $DOTFILES/tmux/tmux.conf $HOME/.tmux.conf
+
+#NVIM CONFIGURATION
+rm -rf $HOME/.config/nvim
+ln -s $DOTFILES/nvim $HOME/.config/nvim
+
+#ESSE NEGOCIO AQUI É UM ALIAS PRA ABRIR UM TMUX DENTRO DOS PROJETOS
+mkdir -p $HOME/.local/bin
+rm -rf $HOME/.local/bin/t
+ln -s $DOTFILES/scripts/t $HOME/.local/bin/t

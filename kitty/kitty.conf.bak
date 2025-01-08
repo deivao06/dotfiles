@@ -1,0 +1,14 @@
+# BEGIN_KITTY_FONTS
+font_family      family="JetBrains Mono"
+bold_font        family='JetBrains Mono' style=Bold variable_name=JetBrainsMonoRoman
+italic_font      auto
+bold_italic_font auto
+font_size	 9
+# END_KITTY_FONTS
+
+adjust_line_height 120%
+
+cursor_blink_interval 0
+enable_audio_bell 0
+hide_window_decorations yes
+window_padding_width 10
