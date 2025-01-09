@@ -49,6 +49,12 @@ use({
       })
       
       vim.api.nvim_set_hl(0, 'NvimTreeIndentMarker', { fg = '#30323E' })
+
+      vim.api.nvim_set_hl(0, 'StatusLineNonText', {
+        fg = vim.api.nvim_get_hl_by_name('NonText', true).foreground,
+        bg = vim.api.nvim_get_hl_by_name('StatusLine', true).background,
+      })
+
     end,
 })
 
@@ -165,6 +171,15 @@ use({
   requires = 'kyazdani42/nvim-web-devicons',
   config = function()
     require('user/plugins/nvim-tree')
+  end,
+})
+
+-- A Status line.
+use({
+  'nvim-lualine/lualine.nvim',
+  requires = 'kyazdani42/nvim-web-devicons',
+  config = function()
+    require('user/plugins/lualine')
   end,
 })
 
