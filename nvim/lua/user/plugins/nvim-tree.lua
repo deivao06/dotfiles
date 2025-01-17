@@ -16,6 +16,9 @@ require('nvim-tree').setup({
       enable = true,
     },
   },
+  filters = {
+    dotfiles = false,
+  }
 })
 
 vim.keymap.set('n', '<Leader>e', ':NvimTreeFindFileToggle<CR>')
