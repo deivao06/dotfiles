@@ -2,9 +2,23 @@
 
 DOTFILES=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
 
-#KITTY CONFIGURATION
-rm -rf $HOME/.config/kitty
-ln -s $DOTFILES/kitty $HOME/.config/kitty
+# INSTALAÇÃO DO TMUX E NVIM
+if ! command -v tmux &> /dev/null; then
+    echo "Instalando tmux..."
+    sudo apt-get update && sudo apt-get install -y tmux
+fi
+
+if ! command -v nvim &> /dev/null; then
+    echo "Instalando nvim..."
+    sudo apt-get update && sudo apt-get install -y neovim
+fi
+
+if [[ "$1" == "--kitty" ]]; then
+	#KITTY CONFIGURATION
+	rm -rf $HOME/.config/kitty
+	mkdir -p $HOME/.config/kitty
+	ln -s $DOTFILES/kitty $HOME/.config/kitty
+fi
 
 #TMUX CONFIGURATION
 rm -rf $HOME/.tmux.conf
@@ -18,3 +32,5 @@ ln -s $DOTFILES/nvim $HOME/.config/nvim
 mkdir -p $HOME/.local/bin
 rm -rf $HOME/.local/bin/t
 ln -s $DOTFILES/scripts/t $HOME/.local/bin/t
+
+echo "Tudo instalado!"
