@@ -1,5 +1,25 @@
 #!/usr/bin/env bash
 
+i3_flag=false
+polybar_flag=false
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --i3)
+            i3_flag=true
+            shift
+            ;;
+        --polybar)
+            polybar_flag=true
+            shift
+            ;;
+        *)
+            echo "Unknow flag: $1"
+            exit 1
+            ;;
+    esac
+done
+
 DOTFILES=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
 
 #KITTY CONFIGURATION
@@ -14,7 +34,19 @@ ln -s $DOTFILES/tmux/tmux.conf $HOME/.tmux.conf
 rm -rf $HOME/.config/nvim
 ln -s $DOTFILES/nvim $HOME/.config/nvim
 
-#ESSE NEGOCIO AQUI É UM ALIAS PRA ABRIR UM TMUX DENTRO DOS PROJETOS
+#TMUX ALIAS
 mkdir -p $HOME/.local/bin
 rm -rf $HOME/.local/bin/t
 ln -s $DOTFILES/scripts/t $HOME/.local/bin/t
+
+#I3 CONFIGURATION
+if $i3_flag; then
+    rm -rf $HOME/.config/i3
+    ln -s $DOTFILES/i3 $HOME/.config/i3
+fi
+
+#POLYBAR
+if $polybar_flag; then
+    rm -rf $HOME/.config/polybar
+    ln -s $DOTFILES/polybar $HOME/.config/polybar
+fi

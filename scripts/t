@@ -5,8 +5,7 @@
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    items=`find ~/Projetos/payt-docker/projects -maxdepth 1 -mindepth 1 -type d`
-    items+=`echo -e "\n/tmp"`
+    items=`find ~/payt/devenv/projects -maxdepth 1 -mindepth 1 -type d`
     selected=`echo "$items" | fzf`
 fi
 
