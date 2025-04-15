@@ -2,6 +2,7 @@
 
 i3_flag=false
 polybar_flag=false
+kitty_flag=false
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -13,6 +14,10 @@ while [[ $# -gt 0 ]]; do
             polybar_flag=true
             shift
             ;;
+        --kitty)
+            kitty_flag=true
+            shift
+            ;;
         *)
             echo "Unknow flag: $1"
             exit 1
@@ -22,31 +27,53 @@ done
 
 DOTFILES=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
 
-#KITTY CONFIGURATION
-rm -rf $HOME/.config/kitty
-ln -s $DOTFILES/kitty $HOME/.config/kitty
+#INSTALLING TMUX AND NVIM
+if ! command -v tmux &> /dev/null; then
+    echo "Installing Tmux..."
+    sudo apt-get update && sudo apt-get install -y tmux
+fi
+
+if ! command -v nvim &> /dev/null; then
+    echo "Installing Nvim..."
+    sudo apt-get update && sudo apt-get install -y neovim
+fi
 
 #TMUX CONFIGURATION
+echo "Configuring Tmux..."
 rm -rf $HOME/.tmux.conf
 ln -s $DOTFILES/tmux/tmux.conf $HOME/.tmux.conf
 
 #NVIM CONFIGURATION
+echo "Configuring Nvim..."
 rm -rf $HOME/.config/nvim
 ln -s $DOTFILES/nvim $HOME/.config/nvim
 
 #TMUX ALIAS
+echo "Configuring Tmux 't' alias"
 mkdir -p $HOME/.local/bin
 rm -rf $HOME/.local/bin/t
 ln -s $DOTFILES/scripts/t $HOME/.local/bin/t
 
 #I3 CONFIGURATION
 if $i3_flag; then
+    echo "Configuring i3wm..."
     rm -rf $HOME/.config/i3
     ln -s $DOTFILES/i3 $HOME/.config/i3
 fi
 
 #POLYBAR
 if $polybar_flag; then
+    echo "Configuring Polybar..."
     rm -rf $HOME/.config/polybar
     ln -s $DOTFILES/polybar $HOME/.config/polybar
 fi
+
+#KITTY CONFIGURATION
+if $kitty_flag; then
+    echo "Configuring Kitty..."
+    rm -rf $HOME/.config/kitty
+    mkdir -p $HOME/.config/kitty
+    ln -s $DOTFILES/kitty $HOME/.config/kitty
+fi
+
+echo "Tudo instalado!"
