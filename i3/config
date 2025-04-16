@@ -190,24 +190,20 @@ bindsym $mod+r mode "resize"
 #}
 
 #PERSONAL------------------------------------------------------------
-#BORDER
 default_border none
-#GAPS
+
+gaps outer 0px
 gaps inner 10px
-gaps outer 20px
 
 exec --no-startup-id nitrogen --set-auto ~/personal/dotfiles/images/wallpaper.png --head=0 && nitrogen --set-auto ~/personal/dotfiles/images/wallpaper.png --head=1 #WALLPAPER
 exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=secrets #INICIANDO GNOME-KEYRIG
 
-#KEYBINDS
 bindsym $mod+Tab       exec --no-startup-id i3-msg workspace back_and_forth
 bindsym $mod+Shift+s   exec flameshot gui #PRINT
 bindsym Print          exec flameshot screen -c #PRINT
 bindsym $mod+d         exec rofi -show drun #ROFI
 bindsym Control+$mod+l exec i3lock -i ~/personal/dotfiles/images/wallpaper.png #I3LOCK
 
-#MONITOR
 exec xrandr --output HDMI-A-0 --auto --left-of eDP
 
-#POLYBAR
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
