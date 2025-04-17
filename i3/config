@@ -13,7 +13,7 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:monospace 8
+# font pango:monospace 8
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -190,13 +190,16 @@ bindsym $mod+r mode "resize"
 #}
 
 #PERSONAL------------------------------------------------------------
-default_border none
+client.focused          #81A1C1 #5E81AC #D8DEE9 #81A1C1 #81A1C1
+client.unfocused        #4C566A #3B4252 #D8DEE9 #4C566A #4C566A
+client.focused_inactive #5E81AC #4C566A #D8DEE9 #5E81AC #5E81AC
+client.urgent           #BF616A #2E3440 #D8DEE9 #BF616A #BF616A
+
+font pango:JetBrains Mono 10
+for_window [all] border pixel 3px
 
 gaps outer 0px
 gaps inner 10px
-
-exec --no-startup-id nitrogen --set-auto ~/personal/dotfiles/images/wallpaper.png --head=0 && nitrogen --set-auto ~/personal/dotfiles/images/wallpaper.png --head=1 #WALLPAPER
-exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=secrets #INICIANDO GNOME-KEYRIG
 
 bindsym $mod+Tab       exec --no-startup-id i3-msg workspace back_and_forth
 bindsym $mod+Shift+s   exec flameshot gui #PRINT
@@ -204,6 +207,7 @@ bindsym Print          exec flameshot screen -c #PRINT
 bindsym $mod+d         exec rofi -show drun #ROFI
 bindsym Control+$mod+l exec i3lock -i ~/personal/dotfiles/images/wallpaper.png #I3LOCK
 
-exec xrandr --output HDMI-A-0 --auto --left-of eDP
-
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec xrandr --output HDMI-A-0 --auto --left-of eDP #MONITOR
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh #POLYBAR
+exec --no-startup-id nitrogen --set-auto ~/personal/dotfiles/images/wallpaper.png --head=0 && nitrogen --set-auto ~/personal/dotfiles/images/wallpaper.png --head=1 #WALLPAPER
+exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=secrets #INICIANDO GNOME-KEYRIG
