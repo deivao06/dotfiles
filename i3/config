@@ -210,4 +210,3 @@ bindsym Control+$mod+l exec i3lock -i ~/personal/dotfiles/images/wallpaper.png #
 exec xrandr --output HDMI-A-0 --auto --left-of eDP #MONITOR
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh #POLYBAR
 exec --no-startup-id nitrogen --set-auto ~/personal/dotfiles/images/wallpaper.png --head=0 && nitrogen --set-auto ~/personal/dotfiles/images/wallpaper.png --head=1 #WALLPAPER
-exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=secrets #INICIANDO GNOME-KEYRIG
