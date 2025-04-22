@@ -205,8 +205,9 @@ bindsym $mod+Tab       exec --no-startup-id i3-msg workspace back_and_forth
 bindsym $mod+Shift+s   exec flameshot gui #PRINT
 bindsym Print          exec flameshot screen -c #PRINT
 bindsym $mod+d         exec rofi -show drun #ROFI
-bindsym Control+$mod+l exec i3lock --image=/home/david/personal/dotfiles/images/wallpaper.png --tiling --pointer=default #I3LOCK
+bindsym Control+$mod+l exec $HOME/.config/i3/lock.sh #I3LOCK
 
 exec xrandr --output HDMI-A-0 --auto --left-of eDP #MONITOR
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh #POLYBAR
 exec --no-startup-id nitrogen --set-auto ~/personal/dotfiles/images/wallpaper.png --head=0 && nitrogen --set-auto ~/personal/dotfiles/images/wallpaper.png --head=1 #WALLPAPER
+
