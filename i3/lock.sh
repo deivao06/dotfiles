@@ -1,21 +1,23 @@
 #!/usr/bin/env bash
 
-i3lock --image=/home/david/personal/dotfiles/images/wallpaper.png --tiling --pointer=default \
+IMAGE="/home/david/personal/dotfiles/images/luiz.png"
+
+i3lock --image=$IMAGE --fill --pointer=default \
 --insidever-color='#fecf4dff'   \
 --ringver-color='ffffffff'      \
 \
 --insidewrong-color='#d23c3dff' \
 --ringwrong-color='ffffffff'    \
 \
---inside-color='#373445ff'      \
---ring-color='#ffffffff'        \
+--inside-color='#37344500'      \
+--ring-color='#ffffff5e'        \
 --separator-color='#00000000'   \
 \
 --keyhl-color='#d23c3dff'       \
 --bshl-color='#d23c3dff'        \
 \
 --line-uses-inside              \
---radius 15                     \
+--radius 57                     \
 --verif-text=""                 \
 --wrong-text=""                 \
---ind-pos="x+86:y+1003"         \
+--ind-pos="x+765:y+807"         \
