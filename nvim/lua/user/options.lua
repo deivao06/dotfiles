@@ -8,7 +8,7 @@ vim.opt.smartindent = true
 vim.opt.wrap = false
 
 vim.opt.number = true
--- vim.opt.relativenumber = true
+vim.opt.relativenumber = true
 
 vim.opt.wildmode = 'longest:full,full' -- complete the longest commom match, and allow tabbing the results to fully complete them
 
