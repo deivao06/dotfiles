@@ -4,6 +4,8 @@ vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 
 vim.opt.smartindent = true
+vim.opt.autoindent = true
+vim.opt.cindent = true
 
 vim.opt.wrap = false
 
@@ -39,3 +41,4 @@ vim.opt.confirm = true -- ask for confirmation instead of erroring
 vim.opt.undofile = true --persistent undo
 vim.opt.backup = true -- automatically save a backup file
 vim.opt.backupdir:remove('.') -- keep backups out of the current directory
+
