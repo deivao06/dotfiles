@@ -29,6 +29,7 @@ use('wbthomason/packer.nvim')
 -- One Dark Theme
 use({
     'jessarcher/onedark.nvim',
+    disable = false,
     config = function()
       vim.cmd('colorscheme onedark')
 
@@ -112,6 +113,7 @@ use({
 -- Automatically add closing brackets, quotes, etc.
 use({
   'windwp/nvim-autopairs',
+  disable = true,
   config = function()
     require('nvim-autopairs').setup()
   end,
@@ -180,6 +182,30 @@ use({
   requires = 'kyazdani42/nvim-web-devicons',
   config = function()
     require('user/plugins/lualine')
+  end,
+})
+
+-- LSP
+use('neovim/nvim-lspconfig')
+
+-- Mason
+use({
+  'mason-org/mason.nvim',
+  requires = {
+    'neovim/nvim-lspconfig',
+    'mason-org/mason-lspconfig.nvim'
+  },
+  config = function()
+    require('user/plugins/mason')
+  end,
+})
+
+-- Treesiter
+use ({
+  'nvim-treesitter/nvim-treesitter',
+  run = ':TSUpdate',
+  config = function()
+    require('user/plugins/treesitter')
   end,
 })
 

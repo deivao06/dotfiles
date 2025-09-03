@@ -3,7 +3,7 @@ require('nvim-tree').setup({
     ignore = false,
   },
   view = {
-    width = 60
+    width = 40
   },
   renderer = {
     group_empty = false,
