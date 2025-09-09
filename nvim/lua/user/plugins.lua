@@ -185,6 +185,19 @@ use({
   end,
 })
 
+-- Autocompletion
+use({
+  'hrsh7th/nvim-cmp',
+  requires = {
+    'hrsh7th/cmp-nvim-lsp',    -- LSP source
+    'hrsh7th/cmp-buffer',      -- buffer source
+    'hrsh7th/cmp-path',        -- path source
+    'hrsh7th/cmp-cmdline',     -- cmdline source
+    'L3MON4D3/LuaSnip',        -- snippets
+    'saadparwaiz1/cmp_luasnip' -- luasnip source
+  }
+})
+
 -- LSP
 use('neovim/nvim-lspconfig')
 
@@ -201,11 +214,20 @@ use({
 })
 
 -- Treesiter
-use ({
+use({
   'nvim-treesitter/nvim-treesitter',
   run = ':TSUpdate',
   config = function()
     require('user/plugins/treesitter')
+  end,
+})
+
+-- ToggleTerm
+use({
+  'akinsho/toggleterm.nvim',
+  lazy = false,
+  config = function()
+    require('user/plugins/toggleterm')
   end,
 })
 

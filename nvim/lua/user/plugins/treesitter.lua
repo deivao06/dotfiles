@@ -10,5 +10,6 @@ require('nvim-treesitter.configs').setup({
         "scss",
         "vue",
     },
-    highlight = { enable = true }
+    highlight = { enable = true },
+    indent = { enable = true }
 })
