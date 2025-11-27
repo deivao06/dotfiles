@@ -1,3 +1,3 @@
 if [[ $- == *i* ]]; then
-    fastfetch
+    "$HOME/personal/dotfiles/scripts/pokemon.sh"
 fi
