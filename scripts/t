@@ -9,6 +9,7 @@ else
     items+=$'\n'$(find ~/payt/devenv/projects -maxdepth 1 -mindepth 1 -type d)
     items+=$'\n'$(find ~/projetos -maxdepth 1 -mindepth 1 -type d)
     items+=$'\n'$(find ~/projetos/aprendizado -maxdepth 1 -mindepth 1 -type d)
+    items+=$'\n'$(find ~/personal -maxdepth 1 -mindepth 1 -type d)
     items+=`echo -e "\n/tmp"`
     selected=`echo "$items" | fzf`
 fi

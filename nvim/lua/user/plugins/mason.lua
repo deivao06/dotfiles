@@ -69,6 +69,13 @@ lspconfig.volar.setup({
     },
 })
 
+-- Mostra erro automaticamente quando para o cursor em cima
+vim.api.nvim_create_autocmd("CursorHold", {
+  callback = function()
+    vim.diagnostic.open_float(nil, { focus = false })
+  end,
+})
+
 vim.keymap.set('n', '<Leader>m', ':Mason<CR>')
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr })
 vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = bufnr })
