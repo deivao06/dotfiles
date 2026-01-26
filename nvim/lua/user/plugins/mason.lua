@@ -1,84 +1,118 @@
+-- MASON
 require("mason").setup()
 require("mason-lspconfig").setup({
-    automatic_installation = true
+    automatic_installation = true,
 })
 
+-- CMP
 local cmp = require("cmp")
 
 cmp.setup({
   snippet = {
     expand = function(args)
-      require('luasnip').lsp_expand(args.body) -- Para snippets
+      require("luasnip").lsp_expand(args.body)
     end,
   },
   mapping = cmp.mapping.preset.insert({
-    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<C-e>'] = cmp.mapping.abort(),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Enter confirma
+    ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+    ["<C-f>"] = cmp.mapping.scroll_docs(4),
+    ["<C-Space>"] = cmp.mapping.complete(),
+    ["<C-e>"] = cmp.mapping.abort(),
+    ["<CR>"] = cmp.mapping.confirm({ select = true }),
   }),
   sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-    { name = 'luasnip' },
+    { name = "nvim_lsp" },
+    { name = "luasnip" },
   }, {
-    { name = 'buffer' },
-    { name = 'path' }
-  })
+    { name = "buffer" },
+    { name = "path" },
+  }),
 })
 
-local lspconfig = require("lspconfig")
+-- CAPABILITIES
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
--- PHP (Laravel)
-lspconfig.intelephense.setup({
-    capabilities = capabilities,
-})
+-----------------------------------------------------------------------
+-- NOVO SISTEMA DO LSP (Neovim 0.11+)
+-- Agora usamos vim.lsp.config.<server> = { ... }
+-- E iniciamos via vim.lsp.start(...)
+-----------------------------------------------------------------------
 
--- JavaScript/TypeScript
-lspconfig.ts_ls.setup({
-    filetypes = {
-        "javascript",
-        "javascriptreact",
-        "javascript.jsx",
-        "typescript",
-        "typescriptreact",
-        "typescript.tsx"
-    },
-})
+-- PHP (Intelephense)
+vim.lsp.config["intelephense"] = {
+  capabilities = capabilities,
+}
+
+-- TypeScript / JavaScript (tsserver novo nome: ts_ls)
+vim.lsp.config["ts_ls"] = {
+  capabilities = capabilities,
+  filetypes = {
+    "javascript",
+    "javascriptreact",
+    "javascript.jsx",
+    "typescript",
+    "typescriptreact",
+    "typescript.tsx",
+  },
+}
 
 -- ESLint
-lspconfig.eslint.setup({
-  root_dir = lspconfig.util.root_pattern(
-    ".eslintrc",
-    ".eslintrc.js",
-    ".eslintrc.cjs",
-    "package.json",
-    ".git"
-  ),
-})
+vim.lsp.config["eslint"] = {
+  capabilities = capabilities,
+  root_dir = function(fname)
+    return vim.fs.root(fname, {
+      ".eslintrc",
+      ".eslintrc.js",
+      ".eslintrc.cjs",
+      "package.json",
+      ".git",
+    })
+  end,
+}
 
 -- Vue (Volar)
-lspconfig.volar.setup({
-    filetypes = { "vue" },
-    init_options = {
-        typescript = {
-            tsdk = vim.fn.stdpath("data") ..
-                "/mason/packages/typescript-language-server/node_modules/typescript/lib"
-        },
+vim.lsp.config["volar"] = {
+  capabilities = capabilities,
+  filetypes = { "vue" },
+  init_options = {
+    typescript = {
+      tsdk = vim.fn.stdpath("data")
+        .. "/mason/packages/typescript-language-server/node_modules/typescript/lib",
     },
+  },
+}
+
+-----------------------------------------------------------------------
+-- AUTOSTART (iniciar LSP automaticamente para o buffer atual)
+-----------------------------------------------------------------------
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "*" },
+  callback = function()
+    local config = vim.lsp.config[vim.bo.filetype]
+    if config then
+      vim.lsp.start(config)
+    end
+  end,
 })
 
--- Mostra erro automaticamente quando para o cursor em cima
+-----------------------------------------------------------------------
+-- DIAGNOSTICS
+-----------------------------------------------------------------------
+
 vim.api.nvim_create_autocmd("CursorHold", {
   callback = function()
     vim.diagnostic.open_float(nil, { focus = false })
   end,
 })
 
-vim.keymap.set('n', '<Leader>m', ':Mason<CR>')
-vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr })
-vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = bufnr })
-vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr })
-vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { buffer = bufnr })
-vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = bufnr })
+-----------------------------------------------------------------------
+-- KEYMAPS (globais, independentes de bufnr)
+-----------------------------------------------------------------------
+
+vim.keymap.set("n", "<Leader>m", ":Mason<CR>")
+vim.keymap.set("n", "gd", vim.lsp.buf.definition)
+vim.keymap.set("n", "gr", vim.lsp.buf.references)
+vim.keymap.set("n", "K", vim.lsp.buf.hover)
+vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename)
+vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
